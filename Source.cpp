@@ -19,63 +19,7 @@
 using namespace std;
 using namespace msclr::interop;
 
-//Make struct to hold Data of Image
-typedef struct
-{
-	int** pixels;
-	int width;
-	int height;
 
-}Image;
-
-//used to intialize the 2D array of Image
-void allocate_image(Image* u, int Width, int Height)
-{
-	u->width = Width;
-	u->height = Height;
-
-	u->pixels = new int* [Height];
-	for (int i = 0; i < Height; i++)
-		u->pixels[i] = new int[Width];
-
-}
-
-//used to free the 2D array of Image
-void Deallocate_image(Image* u, int Height)
-{
-	for (int i = 0; i < Height; i++)
-		free(u->pixels[i]);
-
-	free(u->pixels);
-
-}
-
-//used to convert 1D array to 2D array
-void convert_JPEG_toImage( int* Pixels, Image* u)
-{
-	for (int i = 0; i < u->width; i++)
-	{
-		for (int j = 0; j < u->height; j++)
-		{
-			u->pixels[i][j] = Pixels[(i * u->width) + j];
-		}
-	}
-
-
-}
-
-//used to convert 2D array to 1D
-void convert_Image_toJPEG(int* Pixels, Image* u)
-{
-	for (int i = 0; i < u->height; i++)
-	{
-		for (int j = 0; j < u->width; j++)
-		{
-			Pixels[(i * u->width) + j] = u->pixels[i][j];
-		}
-	}
-
-}
 
 int* inputImage(int* w, int* h, System::String^ imagePath) //put the size of image in w & h
 {
